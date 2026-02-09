@@ -1,11 +1,12 @@
-FROM python:3.12-slim
+FROM python:3.11-slim
 
 # ffmpeg 설치
 RUN apt-get update && apt-get install -y ffmpeg && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
-# 의존성 설치
+# 의존성 설치 (parselmouth 먼저 단독 설치)
+RUN pip install --no-cache-dir praat-parselmouth
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
